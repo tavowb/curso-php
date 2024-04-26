@@ -1,48 +1,105 @@
 <?php
-#Constante de la API
-const API_URL = "https://whenisthenextmcufilm.com/api";
+//Variables
+    $name = "Tavo";
+    $age = 25;
+    $hobbies = ["Programar", "Leer", "Jugar"];
+    $isOld = false;
+    $isYoung = true;
+    $isOld = $age > 60;
+    $isDev = true;
 
-#Inicializar una nueva sesión de cURL; ch =  curl handle
-$ch = curl_init(API_URL);
+//Constantes
+//Constante Global
+    define("Logo_url","https://cdn.freebiesupply.com/logos/large/2x/php-1-logo-svg-vector.svg");
+//Constante Local
+    const NOMBRE = "Tavo";
 
-// Indicar que queremos recibir el resultado de la petición y no mostrarlo en pantalla
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    var_dump($name);
+    var_dump($age);
+    var_dump($hobbies);
+    var_dump($isOld);
+    var_dump($isYoung);
 
-#Ejecutar la petición y guardar la respuesta
-$response = curl_exec($ch);
-$data = json_decode($response, true);
+//If
+    if($age > 18){
+        echo "<h2> Eres mayor de edad </h2>";
+    }else{
+        echo "<h2> Eres menor de edad </h2>";
+    }
 
-#Cerrar la sesión de cURL
-curl_close($ch);
+?>
 
-#Imprimir la respuesta
-#var_dump($data);
+//If Ternario
+<?php if ($isOld): ?>
+    <h2> Eres mayor de 60 años </h2>
+<?php elseif ($isDev): ?>
+    <h2> Eres desarrollador </h2>
+<?php else: ?>
+    <h2> Eres menor de 60 años </h2>
+<?php endif; ?>
+
+//ternario
+<?php
+$ouputAge = $age > 18 ? "Eres mayor de edad" : "Eres menor de edad";
+echo "<h2> $ouputAge </h2>";
+?>
+
+//Match
+<?php
+$ouputAge = match($age){
+    18 => "Eres mayor de edad",
+    25 => "Eres mayor de 25 años",
+    default => "Eres menor de edad"
+};
+echo "<h2> $ouputAge </h2>";
+?>
+
+//Array 
+<?php
+    $bestLanguages = ["PHP", "JavaScript", "Python",1,2];
+    $bestLanguages[3] = "Java";
+    $bestLanguages[] = "C#";
+
+    echo "<h2> El mejor lenguaje es: $bestLanguages[5] </h2>";
+
+?>
+
+//ForEach
+<ul>
+    <?php foreach($bestLanguages as $key =>  $language): ?>
+        <li> <?= $key ." ". $language ?> </li>
+    <?php endforeach; ?>
+</ul>
+
+//Diccionarios
+<?php
+    $person = [
+        "name" => "Tavo",
+        "age" => 25,
+        "hobbies" => ["Programar", "Leer", "Jugar"],
+        "isOld" => false
+    ];
+
+    $person["isOld"] = $person["age"] > 60;
+    $person["isYoung"] = $person["age"] < 18;
+
+    var_dump($person);
 ?>
 
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>La proxima película de Marvel</title>
-    <meta name="description" content="La próxima película de Marvel">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"/>
-</head>
-<main>
-    <section>
-        <img src="<?= $data["poster_url"] ?>" width="300" alt="Poster de <?= $data["title"] ?>" style="border-radius: 16px;">
-    </section>
-    <hgroup>
-        <h1>La próxima película de Marvel</h1>
-        <p>El título de la película es: <strong><?php echo $data["title"]; ?></strong></p>
-        <h3><?=  $data["title"] ?> Se estrena en <?= $data["days_until"] ?> Días </h3>
-        <p>Fecha de estreno: <?= $data["release_date"] ?></p>
-        <br>
-        <h4>La siguiente por salir es: <strong><?= $data["following_production"]["title"] ?></strong> </h4>
-    </hgroup>
 
-</main>
+<img 
+src="<?= Logo_url ?>" 
+alt="Logo de PHP"
+>
+
+<h1>
+    <?= "Mi primera app!!!!" ;?>
+</h1>
+<h1>
+    <?= NOMBRE ?>
+</h1>
+
 <Style>
     :root{
         color-scheme: light dark;
